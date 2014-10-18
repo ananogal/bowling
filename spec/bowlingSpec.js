@@ -40,7 +40,7 @@ describe('Bowling can count and sum the scores of 1 player', function(){
 		bowling.role(10);
 		bowling.role(1);
 		bowling.role(1);
-		roleManyTimes(17, 0);
+		roleManyTimes(16, 0);
 		bowling.calculateScore();
 		expect(bowling.score).toEqual(14);
 	});
@@ -78,5 +78,21 @@ describe('Bowling can count and sum the scores of 1 player', function(){
 		bowling.role(10);
 		bowling.calculateScore();
 		expect(bowling.score).toEqual(30);
+	});
+
+	it('player makes a strike in the 5th frame', function(){
+		roleManyTimes(8, 0);
+		bowling.role(10);
+		bowling.role(1);
+		bowling.role(1);
+		roleManyTimes(8, 0);
+		bowling.calculateScore();
+		expect(bowling.score).toEqual(14);
+	});
+
+	it('player makes the perfect game', function(){
+		roleManyTimes(12, 10);
+		bowling.calculateScore();
+		expect(bowling.score).toEqual(300);
 	});
 });

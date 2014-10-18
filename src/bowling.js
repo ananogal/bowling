@@ -7,6 +7,10 @@ function Bowling(){
 
 Bowling.prototype.role = function(pins) {
 	this.roleScore.push(pins);
+	
+	var lastPositionOnRoleScore = this.roleScore.length - 1;
+	if(this._isStrike(lastPositionOnRoleScore) && this._isNotLastFrame(lastPositionOnRoleScore))
+		this.roleScore.push(0);
 };
 
 Bowling.prototype.calculateScore = function() {
@@ -32,21 +36,25 @@ Bowling.prototype._isStrike = function(currentRole) {
 };
 
 Bowling.prototype._applyStrikeBonus = function(currentRole) {
-	returnValue = false;
-	if(this._isStrike(currentRole))
+	var breakTheForLoop = false;
+	
+	if(this._isStrike(currentRole) && this._isNotLastFrame(currentRole))
+		this.score += this.roleScore[currentRole + 1] + this.roleScore[currentRole +2];
+
+	if(this._isStrike(currentRole) && this._isLastFrame(currentRole))
 	{
-		if(this._isNotLastFrame(currentRole))
-			this.score += this.roleScore[currentRole + 1] + this.roleScore[currentRole +2];
-		else { //last frame
-			this._applyStrikeBonusInLastFrame(currentRole);
-			returnValue = true;
-		}
-	}	
-	return returnValue;
+		this._applyStrikeBonusInLastFrame(currentRole);
+		breakTheForLoop = true;
+	}
+	return breakTheForLoop;
 };
 
 Bowling.prototype._isNotLastFrame = function(currentRole) {
-	return !(currentRole === this.lastFrame);
+	return !this._isLastFrame(currentRole);
+};
+
+Bowling.prototype._isLastFrame = function(currentRole) {
+	return currentRole >= this.lastFrame;
 };
 
 Bowling.prototype._applyStrikeBonusInLastFrame = function(currentRole) {
