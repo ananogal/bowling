@@ -27,7 +27,7 @@ describe('Bowling can count and sum the scores of 1 player', function(){
 		expect(bowling.score).toEqual(20);
 	});
 
-	xit('a player makes a spare', function(){
+	it('a player makes a spare', function(){
 		bowling.role(4);
 		bowling.role(6);
 		bowling.role(3);
