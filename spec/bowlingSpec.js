@@ -40,10 +40,43 @@ describe('Bowling can count and sum the scores of 1 player', function(){
 		bowling.role(10);
 		bowling.role(1);
 		bowling.role(1);
-		roleManyTimes(16, 0);
+		roleManyTimes(17, 0);
 		bowling.calculateScore();
 		expect(bowling.score).toEqual(14);
 	});
 
+	it('a player makes a spare in the last frame', function(){
+		roleManyTimes(18, 0);
+		bowling.role(5);
+		bowling.role(5);
+		bowling.role(1);
+		bowling.calculateScore();
+		expect(bowling.score).toEqual(11);
+	});
 
+	it('player makes a strike in the last frame', function() {
+		roleManyTimes(18, 0);
+		bowling.role(10);
+		bowling.role(1);
+		bowling.calculateScore();
+		expect(bowling.score).toEqual(11);
+	});
+
+	it('player makes a Spare in last frame with a Strike for bonus', function(){
+		roleManyTimes(18, 0);
+		bowling.role(5);
+		bowling.role(5);
+		bowling.role(10);
+		bowling.calculateScore();
+		expect(bowling.score).toEqual(20);
+	});
+
+	it('player makes a strike in last frame with a strike for bonus', function() {
+		roleManyTimes(18, 0);
+		bowling.role(10);
+		bowling.role(10);
+		bowling.role(10);
+		bowling.calculateScore();
+		expect(bowling.score).toEqual(30);
+	});
 });
