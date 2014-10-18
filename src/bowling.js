@@ -8,9 +8,17 @@ Bowling.prototype.role = function(pins) {
 };
 
 Bowling.prototype.calculateScore = function() {
-	for(var i = 0; i < this.roleScore.length; i++){
-		this.score += this.roleScore[i];
-		if((( i + 1 ) % 2 === 0 ) && (this.roleScore[i] + this.roleScore[i-1] === 10))
-			this.score += this.roleScore[i+1];
+	for(var currentRole = 0; currentRole < this.roleScore.length; currentRole++){
+		this.score += this.roleScore[currentRole];
+		this._applySpareBonus(currentRole);
 	}
+};
+
+Bowling.prototype._isSpare = function(currentRole) {
+	return (( currentRole + 1 ) % 2 === 0 ) && (this.roleScore[currentRole] + this.roleScore[currentRole-1] === 10)
+};
+
+Bowling.prototype._applySpareBonus = function(currentRole) {
+	if(this._isSpare(currentRole))
+		 this.score += this.roleScore[currentRole+1];
 };
