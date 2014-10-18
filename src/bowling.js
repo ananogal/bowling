@@ -10,8 +10,7 @@ Bowling.prototype.role = function(pins) {
 Bowling.prototype.calculateScore = function() {
 	for(var currentRole = 0; currentRole < this.roleScore.length; currentRole++){
 		this.score += this.roleScore[currentRole];
-		if(this.roleScore[currentRole] === 10)
-			this.score += this.roleScore[currentRole + 1] + this.roleScore[currentRole +2];
+		this._applyStrikeBonus(currentRole);
 		this._applySpareBonus(currentRole);
 	}
 };
@@ -23,4 +22,13 @@ Bowling.prototype._isSpare = function(currentRole) {
 Bowling.prototype._applySpareBonus = function(currentRole) {
 	if(this._isSpare(currentRole))
 		 this.score += this.roleScore[currentRole+1];
+};
+
+Bowling.prototype._isStrike = function(currentRole) {
+	return	this.roleScore[currentRole] === 10;
+};
+
+Bowling.prototype._applyStrikeBonus = function(currentRole) {
+	if(this._isStrike(currentRole))
+		this.score += this.roleScore[currentRole + 1] + this.roleScore[currentRole +2];
 };
