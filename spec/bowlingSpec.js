@@ -36,5 +36,14 @@ describe('Bowling can count and sum the scores of 1 player', function(){
 		expect(bowling.score).toEqual(16);
 	});
 
+	it('a player makes a strike', function(){
+		bowling.role(10);
+		bowling.role(1);
+		bowling.role(1);
+		roleManyTimes(16, 0);
+		bowling.calculateScore();
+		expect(bowling.score).toEqual(14);
+	});
+
 
 });

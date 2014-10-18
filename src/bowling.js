@@ -10,6 +10,8 @@ Bowling.prototype.role = function(pins) {
 Bowling.prototype.calculateScore = function() {
 	for(var currentRole = 0; currentRole < this.roleScore.length; currentRole++){
 		this.score += this.roleScore[currentRole];
+		if(this.roleScore[currentRole] === 10)
+			this.score += this.roleScore[currentRole + 1] + this.roleScore[currentRole +2];
 		this._applySpareBonus(currentRole);
 	}
 };
