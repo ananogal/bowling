@@ -95,4 +95,13 @@ describe('Bowling can count and sum the scores of 1 player', function(){
 		bowling.calculateScore();
 		expect(bowling.score).toEqual(300);
 	});
+
+	it('can sum a players score in the middle of the game', function(){
+		bowling.role(5);
+		bowling.role(5);
+		bowling.role(4);
+		bowling.calculateScore();
+
+		expect(bowling.score).toEqual(18);
+	});
 });
