@@ -20,6 +20,7 @@ Bowling.prototype.calculateScore = function() {
 			break;
 		if(this._applySpareBonus(currentRole))
 			break;
+	}
 };
 
 Bowling.prototype._isSpare = function(currentRole) {
