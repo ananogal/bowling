@@ -16,13 +16,10 @@ Bowling.prototype.role = function(pins) {
 Bowling.prototype.calculateScore = function() {
 	for(var currentRole = 0; currentRole < this.roleScore.length; currentRole++){
 		this.score += this.roleScore[currentRole];
-		console.log(this.score);
 		if(this._applyStrikeBonus(currentRole))
 			break;
 		if(this._applySpareBonus(currentRole))
 			break;
-	}
-	console.log("out of for"+ this.score);
 };
 
 Bowling.prototype._isSpare = function(currentRole) {
