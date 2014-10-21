@@ -38,4 +38,33 @@ describe("In a Frame", function() {
 		myFrame = frame.roll(new Roll(10));
 		expect(myFrame instanceof Strike).toBe(true);
 	});
+
+	describe('if it is a Strike', function() {
+
+		it('it knows if it can calculate its bonus', function(){
+			myFrame = frame.roll(new Roll(10));
+			nextFrame = new Frame();
+			nextFrame.roll(new Roll(1)).roll(new Roll(1));
+			myFrame.nextFrame = nextFrame; 
+			expect(myFrame.canCalculateBonus()).toBe(true);
+		});
+
+		it('it knows if it cannot calculate its bonus', function(){
+			myFrame = frame.roll(new Roll(10));
+			expect(myFrame.canCalculateBonus()).toBe(false);
+		});
+
+		it('should be able to calculate its bonus', function() {
+			myFrame = frame.roll(new Roll(10));
+			nextFrame = new Frame();
+			nextFrame.roll(new Roll(1)).roll(new Roll(1));
+			myFrame.nextFrame = nextFrame;
+			expect(myFrame.calculateBonus(nextFrame)).toEqual(2);
+		});
+
+		it('should not calculateBonus if it cant', function() {
+			myFrame = frame.roll(new Roll(10));
+			expect(myFrame.calculateBonus()).toEqual(undefined);
+		});
+	});
 });
