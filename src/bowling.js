@@ -1,67 +1,67 @@
 function Bowling(){
 	this.score = 0;
-	this.roleScore = [];
-	this.totalFramesRoles = 20;
+	this.rollScore = [];
+	this.totalFramesRolls = 20;
 	this.lastFrame = 18;
 };
 
-Bowling.prototype.role = function(pins) {
-	this.roleScore.push(pins);
+Bowling.prototype.roll = function(pins) {
+	this.rollScore.push(pins);
 	
-	var lastPositionOnRoleScore = this.roleScore.length - 1;
-	if(this._isStrike(lastPositionOnRoleScore) && this._isNotLastFrame(lastPositionOnRoleScore))
-		this.roleScore.push(0);
+	var lastPositionOnRollScore = this.rollScore.length - 1;
+	if(this._isStrike(lastPositionOnRollScore) && this._isNotLastFrame(lastPositionOnRollScore))
+		this.rollScore.push(0);
 };
 
 Bowling.prototype.calculateScore = function() {
-	for(var currentRole = 0; currentRole < this.roleScore.length; currentRole++){
-		this.score += this.roleScore[currentRole];
-		if(this._applyStrikeBonus(currentRole))
+	for(var currentRoll = 0; currentRoll < this.rollScore.length; currentRoll++){
+		this.score += this.rollScore[currentRoll];
+		if(this._applyStrikeBonus(currentRoll))
 			break;
-		if(this._applySpareBonus(currentRole))
+		if(this._applySpareBonus(currentRoll))
 			break;
 	}
 };
 
-Bowling.prototype._isSpare = function(currentRole) {
-	return (( currentRole + 1 ) % 2 === 0 ) && (this.roleScore[currentRole] + this.roleScore[currentRole-1] === 10)
+Bowling.prototype._isSpare = function(currentRoll) {
+	return (( currentRoll + 1 ) % 2 === 0 ) && (this.rollScore[currentRoll] + this.rollScore[currentRoll-1] === 10)
 };
 
-Bowling.prototype._applySpareBonus = function(currentRole) {
-	if(this._isSpare(currentRole))
-		 this.score += this.roleScore[currentRole+1];
-	if(this._isSpare(currentRole) && this._isLastFrame(currentRole))
+Bowling.prototype._applySpareBonus = function(currentRoll) {
+	if(this._isSpare(currentRoll))
+		 this.score += this.rollScore[currentRoll+1];
+	if(this._isSpare(currentRoll) && this._isLastFrame(currentRoll))
 		return true;
 	return false;
 };
 
-Bowling.prototype._isStrike = function(currentRole) {
-	return	this.roleScore[currentRole] === 10;
+Bowling.prototype._isStrike = function(currentRoll) {
+	return	this.rollScore[currentRoll] === 10;
 };
 
-Bowling.prototype._applyStrikeBonus = function(currentRole) {	
-	if(this._isStrike(currentRole) && this._isNotLastFrame(currentRole))
-		this.score += this.roleScore[currentRole + 1] + this.roleScore[currentRole +2];
+Bowling.prototype._applyStrikeBonus = function(currentRoll) {	
+	if(this._isStrike(currentRoll) && this._isNotLastFrame(currentRoll))
+		this.score += this.rollScore[currentRoll + 1] + this.rollScore[currentRoll +2];
 
-	if(this._isStrike(currentRole) && this._isLastFrame(currentRole))
+	if(this._isStrike(currentRoll) && this._isLastFrame(currentRoll))
 	{
-		this._applyStrikeBonusInLastFrame(currentRole);
+		this._applyStrikeBonusInLastFrame(currentRoll);
 		return true;
 	}
 	return false;
 };
 
-Bowling.prototype._isNotLastFrame = function(currentRole) {
-	return !this._isLastFrame(currentRole);
+Bowling.prototype._isNotLastFrame = function(currentRoll) {
+	return !this._isLastFrame(currentRoll);
 };
 
-Bowling.prototype._isLastFrame = function(currentRole) {
-	return currentRole >= this.lastFrame;
+Bowling.prototype._isLastFrame = function(currentRoll) {
+	return currentRoll >= this.lastFrame;
 };
 
-Bowling.prototype._applyStrikeBonusInLastFrame = function(currentRole) {
-	this.score += this.roleScore[currentRole + 1];
-	if(this._isStrike(currentRole + 1))
-		this.score +=this.roleScore[currentRole + 2]; 
+Bowling.prototype._applyStrikeBonusInLastFrame = function(currentRoll) {
+	this.score += this.rollScore[currentRoll + 1];
+	if(this._isStrike(currentRoll + 1))
+		this.score +=this.rollScore[currentRoll + 2]; 
 };
 

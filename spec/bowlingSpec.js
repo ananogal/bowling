@@ -4,102 +4,102 @@ describe('Bowling can count and sum the scores of 1 player', function(){
 		bowling = new Bowling();
 	});
 
-	roleManyTimes = function(numberOfTimesToRole, result){
-		for(var i = 0; i < numberOfTimesToRole; i++){
-			bowling.role(result);
+	rollManyTimes = function(numberOfTimesToRoll, result){
+		for(var i = 0; i < numberOfTimesToRoll; i++){
+			bowling.roll(result);
 		}	
 	};
 
 	it('a player makes a Gutter Game', function(){
-		roleManyTimes(20, 0);
+		rollManyTimes(20, 0);
 		bowling.calculateScore();
 		expect(bowling.score).toEqual(0);
 	});
 
-	it('adds the score of a role', function(){
-		roleManyTimes(20, 0);
-		expect(bowling.roleScore.length).toEqual(20);
+	it('adds the score of a roll', function(){
+		rollManyTimes(20, 0);
+		expect(bowling.rollScore.length).toEqual(20);
 	});
 
-	it('a player only roles 1', function(){
-		roleManyTimes(20, 1);
+	it('a player only rolls 1', function(){
+		rollManyTimes(20, 1);
 		bowling.calculateScore();
 		expect(bowling.score).toEqual(20);
 	});
 
 	it('a player makes a spare', function(){
-		bowling.role(4);
-		bowling.role(6);
-		bowling.role(3);
-		roleManyTimes(17, 0);
+		bowling.roll(4);
+		bowling.roll(6);
+		bowling.roll(3);
+		rollManyTimes(17, 0);
 		bowling.calculateScore()
 		expect(bowling.score).toEqual(16);
 	});
 
 	it('a player makes a strike', function(){
-		bowling.role(10);
-		bowling.role(1);
-		bowling.role(1);
-		roleManyTimes(16, 0);
+		bowling.roll(10);
+		bowling.roll(1);
+		bowling.roll(1);
+		rollManyTimes(16, 0);
 		bowling.calculateScore();
 		expect(bowling.score).toEqual(14);
 	});
 
 	it('a player makes a spare in the last frame', function(){
-		roleManyTimes(18, 0);
-		bowling.role(5);
-		bowling.role(5);
-		bowling.role(1);
+		rollManyTimes(18, 0);
+		bowling.roll(5);
+		bowling.roll(5);
+		bowling.roll(1);
 		bowling.calculateScore();
 		expect(bowling.score).toEqual(11);
 	});
 
 	it('player makes a strike in the last frame', function() {
-		roleManyTimes(18, 0);
-		bowling.role(10);
-		bowling.role(1);
+		rollManyTimes(18, 0);
+		bowling.roll(10);
+		bowling.roll(1);
 		bowling.calculateScore();
 		expect(bowling.score).toEqual(11);
 	});
 
 	it('player makes a Spare in last frame with a Strike for bonus', function(){
-		roleManyTimes(18, 0);
-		bowling.role(5);
-		bowling.role(5);
-		bowling.role(10);
+		rollManyTimes(18, 0);
+		bowling.roll(5);
+		bowling.roll(5);
+		bowling.roll(10);
 		bowling.calculateScore();
 		expect(bowling.score).toEqual(20);
 	});
 
 	it('player makes a strike in last frame with a strike for bonus', function() {
-		roleManyTimes(18, 0);
-		bowling.role(10);
-		bowling.role(10);
-		bowling.role(10);
+		rollManyTimes(18, 0);
+		bowling.roll(10);
+		bowling.roll(10);
+		bowling.roll(10);
 		bowling.calculateScore();
 		expect(bowling.score).toEqual(30);
 	});
 
 	it('player makes a strike in the 5th frame', function(){
-		roleManyTimes(8, 0);
-		bowling.role(10);
-		bowling.role(1);
-		bowling.role(1);
-		roleManyTimes(8, 0);
+		rollManyTimes(8, 0);
+		bowling.roll(10);
+		bowling.roll(1);
+		bowling.roll(1);
+		rollManyTimes(8, 0);
 		bowling.calculateScore();
 		expect(bowling.score).toEqual(14);
 	});
 
 	it('player makes the perfect game', function(){
-		roleManyTimes(12, 10);
+		rollManyTimes(12, 10);
 		bowling.calculateScore();
 		expect(bowling.score).toEqual(300);
 	});
 
 	it('can sum a players score in the middle of the game', function(){
-		bowling.role(5);
-		bowling.role(5);
-		bowling.role(4);
+		bowling.roll(5);
+		bowling.roll(5);
+		bowling.roll(4);
 		bowling.calculateScore();
 
 		expect(bowling.score).toEqual(18);
