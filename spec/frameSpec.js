@@ -9,7 +9,7 @@ describe("In a Frame", function() {
 	var frame;
 
 	beforeEach(function() {
-		frame = new Frame;
+		frame = new Frame();
 	});
 
 	it("we can roll for the first time", function() {
@@ -40,9 +40,13 @@ describe("In a Frame", function() {
 	});
 
 	describe('if it is a Strike', function() {
+		var myFrame;
+
+		beforeEach(function() {
+			myFrame = frame.roll(new Roll(10));
+		});
 
 		it('it knows if it can calculate its bonus', function(){
-			myFrame = frame.roll(new Roll(10));
 			nextFrame = new Frame();
 			nextFrame.roll(new Roll(1)).roll(new Roll(1));
 			myFrame.nextFrame = nextFrame; 
@@ -50,12 +54,10 @@ describe("In a Frame", function() {
 		});
 
 		it('it knows if it cannot calculate its bonus', function(){
-			myFrame = frame.roll(new Roll(10));
 			expect(myFrame.canCalculateBonus()).toBe(false);
 		});
 
 		it('should be able to calculate its bonus', function() {
-			myFrame = frame.roll(new Roll(10));
 			nextFrame = new Frame();
 			nextFrame.roll(new Roll(1)).roll(new Roll(1));
 			myFrame.nextFrame = nextFrame;
@@ -63,8 +65,34 @@ describe("In a Frame", function() {
 		});
 
 		it('should not calculateBonus if it cant', function() {
-			myFrame = frame.roll(new Roll(10));
-			expect(myFrame.calculateBonus()).toEqual(undefined);
+			expect(myFrame.calculateBonus()).toEqual(0);
 		});
+
+		it('should calculate its score', function() {
+			nextFrame = new Frame();
+			nextFrame.roll(new Roll(1)).roll(new Roll(1));
+			myFrame.nextFrame = nextFrame;
+			expect(myFrame.score()).toEqual(12);
+		});
+
+		it('should get the a score of 30 if it makes 3 strikes in a row', function () {
+			secondFrame = new Frame();
+			secondFrame = secondFrame.roll(new Roll(10));
+			myFrame.nextFrame = secondFrame;
+
+			thirdFrame = new Frame();	
+			thirdFrame = thirdFrame.roll(new Roll(10));
+			secondFrame.nextFrame = thirdFrame;
+
+			expect(myFrame.score()).toEqual(30);
+
+		});
+
 	});
+
+	it('if the sum of both rolls is 10 we have a Spare', function() {
+		myFrame = frame.roll(new Roll(5)).roll(new Roll(5));
+		expect(myFrame.score()).toEqual(10);
+	});
+
 });
