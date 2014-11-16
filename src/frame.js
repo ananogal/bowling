@@ -74,6 +74,11 @@ Spare.prototype.canCalculateBonus = function() {
 	return this.nextFrame !== undefined
 };	
 
+Spare.prototype.calculateBonus = function() {
+	if(this.canCalculateBonus())
+		return this.nextFrame.firstRoll.pins; 
+};
+
 
 
 

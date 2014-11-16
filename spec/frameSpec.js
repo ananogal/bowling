@@ -60,7 +60,16 @@ describe("In a Frame", function() {
 			expect(myFrame.canCalculateBonus()).toBe(true);
 		});
 
-		
+		it('it knows if cant calculate its bonus', function() {
+			expect(myFrame.canCalculateBonus()).toBe(false);
+		});
+
+		it('calculates its bonus', function() {
+			nextFrame = new Frame();
+			nextFrame.roll(new Roll(1)).roll(new Roll(1));
+			myFrame.nextFrame = nextFrame; 
+			expect(myFrame.calculateBonus()).toEqual(1);
+		});
 	});
 
 });
