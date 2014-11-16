@@ -25,7 +25,7 @@ describe('if it is a Strike', function() {
 		});
 
 		it('should not calculateBonus if it cant', function() {
-			expect(myFrame.calculateBonus()).toEqual(undefined);
+			expect(myFrame.calculateBonus()).toEqual(0);
 		});
 
 		it('should calculate its score', function() {

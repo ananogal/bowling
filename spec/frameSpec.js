@@ -47,10 +47,28 @@ describe("In a Frame", function() {
 	});
 
 	describe('when in the 10th frame', function() {
+		var frame, tenthFrame;
 
-		xit('it should know if it is the 10th frame', function() {
-			expect(myFrame)
+		beforeEach(function(){
+			frame = new Frame();
+			tenthFrame = new TenthFrame(frame);
 		});
+
+		it('has a normal score', function(){
+			myFrame = tenthFrame.roll(new Roll(1)).roll(new Roll(1));
+			expect(myFrame.score()).toEqual(2);
+		});
+
+		it('if is a Spare, it can roll an extra time for bonus', function(){
+			myFrame = tenthFrame.roll(new Roll(5)).roll(new Roll(5)).roll(new Roll(2));
+			expect(myFrame.bonus).toEqual(2);
+		});
+
+		it('if is a Strike in the 10th frame, it can roll 2 more for bonus', function(){
+			myFrame = tenthFrame.roll(new Roll(10)).roll(new Roll(10)).roll(new Roll(10));
+			expect(myFrame.score()).toEqual(30); 
+		});
+
 	});
 
 });

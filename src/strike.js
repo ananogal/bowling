@@ -19,7 +19,7 @@ Strike.prototype.calculateBonus = function() {
 		return this.nextFrame.pinsKnockDown();
 	}
 	
-	return undefined;
+	return 0;
 };
 
 Strike.prototype.canCalculateBonus = function(){
