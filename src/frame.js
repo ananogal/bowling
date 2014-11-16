@@ -3,7 +3,6 @@ function Roll(pins) {
 }
 
 function Frame(){
-	this.type = 'Frame';
 	this.rules = new FrameRules(this);
 };
 

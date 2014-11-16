@@ -1,5 +1,4 @@
 function Spare(frame){
-	this.type = 'Spare';
 	this.frame = frame;
 	this.nextFrame = undefined;
 };

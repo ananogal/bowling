@@ -46,4 +46,11 @@ describe("In a Frame", function() {
 		expect(myFrame instanceof Spare).toBe(true);
 	});
 
+	describe('when in the 10th frame', function() {
+
+		xit('it should know if it is the 10th frame', function() {
+			expect(myFrame)
+		});
+	});
+
 });

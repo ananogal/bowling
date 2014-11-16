@@ -1,6 +1,5 @@
 
 function Strike(frame) {
-	this.type = 'Strike';
 	this.frame = frame;
 	this.nextFrame = undefined;
 };
@@ -12,7 +11,7 @@ Strike.prototype.score = function() {
 Strike.prototype.calculateBonus = function() {
 	if(this.canCalculateBonus())
 	{
-		if (this.nextFrame.type === 'Strike')
+		if (this.nextFrame instanceof Strike)
 		{
 			if(this.nextFrame.canCalculateBonus())
 				return this.nextFrame.pinsKnockDown() + this.nextFrame.calculateBonus();
