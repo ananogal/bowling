@@ -13,14 +13,20 @@ Strike.prototype.calculateBonus = function() {
 	if(this.canCalculateBonus())
 	{
 		if (this.nextFrame.type === 'Strike')
-			return this.nextFrame.score();
-
-		return this.nextFrame.pinsKnockDown();	
+		{
+			if(this.nextFrame.canCalculateBonus())
+				return this.nextFrame.pinsKnockDown() + this.nextFrame.calculateBonus();
+		}
+		return this.nextFrame.pinsKnockDown();
 	}
 	
-	return 0;
+	return undefined;
 };
 
 Strike.prototype.canCalculateBonus = function(){
 	return this.nextFrame !== undefined;
+};
+
+Strike.prototype.pinsKnockDown = function(){
+	return this.frame.firstRoll.pins;
 };

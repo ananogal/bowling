@@ -32,7 +32,8 @@ describe("In a Frame", function() {
 	});
 
 	it("if the first roll is a 10 we don't need a second one for the score", function() {
-		expect(frame.roll(new Roll(10)).score()).toEqual(10);
+		myFrame = frame.roll(new Roll(10));
+		expect(myFrame.pinsKnockDown()).toEqual(10);
 	});
 
 	it("if the first roll is a 10 we have a strike", function() {
@@ -43,33 +44,6 @@ describe("In a Frame", function() {
 	it('if the sum of both rolls is 10 we have a Spare', function() {
 		myFrame = frame.roll(new Roll(5)).roll(new Roll(5));
 		expect(myFrame instanceof Spare).toBe(true);
-	});
-
-	describe('if it is a Spare', function() {
-		var frame, myFrame;
-
-		beforeEach(function() {
-			frame = new Frame();
-			myFrame = frame.roll(new Roll(5)).roll(new Roll(5));
-		});
-
-		it('it knows if it can calculate its bonus', function() {
-			nextFrame = new Frame();
-			nextFrame.roll(new Roll(1)).roll(new Roll(1));
-			myFrame.nextFrame = nextFrame; 
-			expect(myFrame.canCalculateBonus()).toBe(true);
-		});
-
-		it('it knows if cant calculate its bonus', function() {
-			expect(myFrame.canCalculateBonus()).toBe(false);
-		});
-
-		it('calculates its bonus', function() {
-			nextFrame = new Frame();
-			nextFrame.roll(new Roll(1)).roll(new Roll(1));
-			myFrame.nextFrame = nextFrame; 
-			expect(myFrame.calculateBonus()).toEqual(1);
-		});
 	});
 
 });
