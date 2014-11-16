@@ -13,7 +13,8 @@ describe("In a Frame", function() {
 	});
 
 	it("we can roll for the first time", function() {
-		expect(frame.roll(new Roll(8)).firstRoll.pins).toEqual(8);
+		var myFrame = frame.roll(new Roll(8));
+		expect(myFrame.firstRoll.pins).toEqual(8);
 	});
 
 	it("we can roll a second time", function() {
@@ -41,9 +42,25 @@ describe("In a Frame", function() {
 
 	it('if the sum of both rolls is 10 we have a Spare', function() {
 		myFrame = frame.roll(new Roll(5)).roll(new Roll(5));
-		expect(myFrame.score()).toEqual(10);
+		expect(myFrame instanceof Spare).toBe(true);
 	});
 
+	describe('if it is a Spare', function() {
+		var frame, myFrame;
 
+		beforeEach(function() {
+			frame = new Frame();
+			myFrame = frame.roll(new Roll(5)).roll(new Roll(5));
+		});
+
+		it('it knows if it can calculate its bonus', function() {
+			nextFrame = new Frame();
+			nextFrame.roll(new Roll(1)).roll(new Roll(1));
+			myFrame.nextFrame = nextFrame; 
+			expect(myFrame.canCalculateBonus()).toBe(true);
+		});
+
+		
+	});
 
 });

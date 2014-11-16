@@ -28,7 +28,7 @@ Frame.prototype.score = function() {
 };
 
 Frame.prototype.pinsKnockDown = function() {
-	if (this.secondRoll !== undefined) 
+	if (this.rules.hasSecondRoll()) 
 		return this.firstRoll.pins + this.secondRoll.pins;
 	else
 		return this.firstRoll.pins;
@@ -42,16 +42,22 @@ function FrameRules(frame){
 /****************FRAMERULES******************/
 /********************************************/
 
-FrameRules.prototype.isStrike = function() {
-	return this.frame.firstRoll.pins == 10
-};
-
 FrameRules.prototype.isFirstRoll = function() {
 	return this.frame.firstRoll === undefined
 };
 
+FrameRules.prototype.isStrike = function() {
+	return this.frame.firstRoll.pins == 10
+};
+
 FrameRules.prototype.isSpare = function(){
-	return this.frame.firstRoll.pins != 10 && this.frame.score === 10;
+	if( !this.hasSecondRoll() ) 
+		return false;
+	return (this.frame.firstRoll.pins != 10) && (this.frame.score() == 10);
+};
+
+FrameRules.prototype.hasSecondRoll = function(){
+	return this.frame.secondRoll !== undefined
 };
 
 /********************************************/
@@ -61,7 +67,12 @@ FrameRules.prototype.isSpare = function(){
 function Spare(frame){
 	this.type = 'Spare';
 	this.frame = frame;
+	this.nextFrame = undefined;
 };
+
+Spare.prototype.canCalculateBonus = function() {
+	return this.nextFrame !== undefined
+};	
 
 
 
