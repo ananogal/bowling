@@ -60,30 +60,30 @@ FrameRules.prototype.hasSecondRoll = function(){
 };
 
 
-function TenthFrame(frame){
-	this.frame = frame;
-	this.bonus = 0;
-}
+// function TenthFrame(frame){
+// 	this.frame = frame;
+// 	this.bonus = 0;
+// }
 
-TenthFrame.prototype.roll = function(roll) {
-	if(this.frame instanceof Strike)
-		this.bonus += roll.pins;
-	else if(this.frame instanceof Spare)
-		this.bonus = roll.pins;
-	else
-		this.frame = this.frame.roll(roll);
-	return this;
-};
+// TenthFrame.prototype.roll = function(roll) {
+// 	if(this.frame instanceof Strike)
+// 		this.bonus += roll.pins;
+// 	else if(this.frame instanceof Spare)
+// 		this.bonus = roll.pins;
+// 	else
+// 		this.frame = this.frame.roll(roll);
+// 	return this;
+// };
 
-TenthFrame.prototype.score = function() {
-	if(this.hasBonus())
-		return this.frame.score() + this.bonus;
-	return this.frame.score();
-};
+// TenthFrame.prototype.score = function() {
+// 	if(this.hasBonus())
+// 		return this.frame.score() + this.bonus;
+// 	return this.frame.score();
+// };
 
-TenthFrame.prototype.hasBonus = function() {
-	return this.bonus !== undefined;
-};
+// TenthFrame.prototype.hasBonus = function() {
+// 	return this.bonus !== undefined;
+// };
 
 
 

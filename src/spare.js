@@ -15,3 +15,15 @@ Spare.prototype.calculateBonus = function() {
 Spare.prototype.score = function(){
 	return this.frame.score() + this.calculateBonus();
 };
+
+Spare.prototype.pinsKnockDown = function() {
+	return this.frame.pinsKnockDown();
+};
+
+Spare.prototype.firstRoll = function(){
+	return this.frame.firstRoll;
+};
+
+Spare.prototype.secondRoll = function(){
+	return this.frame.secondRoll;
+};

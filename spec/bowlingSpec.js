@@ -6,7 +6,7 @@ describe('Bowling can count and sum the scores of 1 player', function(){
 
 	addANewFrameToBowling = function(firstRollPins, secondRollPins){
 		frame = new Frame();
-		frame.roll(new Roll(firstRollPins)).roll(new Roll(secondRollPins));
+		frame = frame.roll(new Roll(firstRollPins)).roll(new Roll(secondRollPins));
 		bowling.addFrame(frame);
 	};
 
@@ -30,11 +30,32 @@ describe('Bowling can count and sum the scores of 1 player', function(){
 		expect(bowling.calculateScore()).toEqual(4);
 	});
 
-	it('should create a 10th frame', function() {
+	it('should have score = 0 for a gunter game', function() {
 		for (var i = 0; i < 10; i++) {
-		   addANewFrameToBowling(1, 1);
+		   addANewFrameToBowling(0, 0);
 		}
-		tenthFrame = bowling.frames[9];
-		expect(tenthFrame instanceof TenthFrame).toBe(true);
+		expect(bowling.calculateScore()).toEqual(0);
 	});
+
+	it('should have score = 300 for a Perfect game', function(){
+		createTenStrikes();
+		addNextFrameIfIsStrikeOrSpare();
+		expect(bowling.calculateScore()).toEqual(300);
+	});
+
+	createTenStrikes = function(){
+		for (var i = 0; i < 12; i++) {
+		  frame = new Frame();
+			myFrame = frame.roll(new Roll(10));
+			bowling.addFrame(myFrame);
+		}
+	};
+
+	addNextFrameIfIsStrikeOrSpare = function(){
+		for(var i = bowling.frames.length-2; i > -1; i--){
+			frame = bowling.frames[i];
+			frame.nextFrame = bowling.frames[i + 1];
+		}
+	};
+
 });

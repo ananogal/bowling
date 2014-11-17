@@ -19,9 +19,9 @@ describe('if it is a Strike', function() {
 
 		it('should be able to calculate its bonus', function() {
 			nextFrame = new Frame();
-			nextFrame.roll(new Roll(1)).roll(new Roll(1));
+			nextFrame = nextFrame.roll(new Roll(1)).roll(new Roll(1));
 			myFrame.nextFrame = nextFrame;
-			expect(myFrame.calculateBonus(nextFrame)).toEqual(2);
+			expect(myFrame.calculateBonus()).toEqual(2);
 		});
 
 		it('should not calculateBonus if it cant', function() {
@@ -43,6 +43,23 @@ describe('if it is a Strike', function() {
 			thirdFrame = new Frame();	
 			thirdFrame = thirdFrame.roll(new Roll(10));
 			secondFrame.nextFrame = thirdFrame;
+
+			expect(myFrame.score()).toEqual(30);
+
+		});
+
+		it('should get the a score of 30 if it makes 3 strikes in a row, and a nornal frame after', function () {
+			secondFrame = new Frame();
+			secondFrame = secondFrame.roll(new Roll(10));
+			myFrame.nextFrame = secondFrame;
+
+			thirdFrame = new Frame();	
+			thirdFrame = thirdFrame.roll(new Roll(10));
+			secondFrame.nextFrame = thirdFrame;
+
+			fourFrame = new Frame();
+			fourFrame = fourFrame.roll(new Roll(2)).roll(new Roll(2));
+			thirdFrame.nextFrame = fourFrame;
 
 			expect(myFrame.score()).toEqual(30);
 

@@ -13,7 +13,7 @@ describe("In a Frame", function() {
 	});
 
 	it("we can roll for the first time", function() {
-		var myFrame = frame.roll(new Roll(8));
+		myFrame = frame.roll(new Roll(8));
 		expect(myFrame.firstRoll.pins).toEqual(8);
 	});
 
@@ -47,25 +47,30 @@ describe("In a Frame", function() {
 	});
 
 	describe('when in the 10th frame', function() {
-		var frame, tenthFrame;
+		var frame;
 
 		beforeEach(function(){
 			frame = new Frame();
-			tenthFrame = new TenthFrame(frame);
 		});
 
 		it('has a normal score', function(){
-			myFrame = tenthFrame.roll(new Roll(1)).roll(new Roll(1));
+			myFrame = frame.roll(new Roll(1)).roll(new Roll(1));
 			expect(myFrame.score()).toEqual(2);
 		});
 
 		it('if is a Spare, it can roll an extra time for bonus', function(){
-			myFrame = tenthFrame.roll(new Roll(5)).roll(new Roll(5)).roll(new Roll(2));
-			expect(myFrame.bonus).toEqual(2);
+			myFrame = frame.roll(new Roll(5)).roll(new Roll(5));
+			extraFrame = (new Frame()).roll(new Roll(2));
+			myFrame.nextFrame = extraFrame;
+			expect(myFrame.score()).toEqual(12);
 		});
 
 		it('if is a Strike in the 10th frame, it can roll 2 more for bonus', function(){
-			myFrame = tenthFrame.roll(new Roll(10)).roll(new Roll(10)).roll(new Roll(10));
+			myFrame = frame.roll(new Roll(10))
+			extraFrame1 = (new Frame).roll(new Roll(10));
+			myFrame.nextFrame = extraFrame1;
+			extraFrame2 = (new Frame).roll(new Roll(10));
+			extraFrame1.nextFrame = extraFrame2;
 			expect(myFrame.score()).toEqual(30); 
 		});
 
